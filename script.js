@@ -1,36 +1,31 @@
 const images = [
-  { url: "https://via.placeholder.com/150", alt: "Placeholder Image 1" },
-  { url: "https://via.placeholder.com/150", alt: "Placeholder Image 2" },
-  { url: "https://via.placeholder.com/150", alt: "Placeholder Image 3" }
+  {url: 'https://source.unsplash.com/random/800x600'},
+  {url: 'https://source.unsplash.com/random/600x800'},
+  {url: 'https://source.unsplash.com/random/1200x900'},
+  {url: 'https://source.unsplash.com/random/900x1200'},
+  {url: 'https://source.unsplash.com/random/700x700'}
 ];
 
-const downloadImagesButton = document.getElementById("download-images-button");
-const outputDiv = document.getElementById("output");
-
-function downloadImage(image) {
-  return new Promise((resolve, reject) => {
-    const imgElement = new Image();
-    imgElement.src = image.url;
-    imgElement.alt = image.alt;
-    imgElement.addEventListener("load", () => {
-      resolve(imgElement);
-    });
-    imgElement.addEventListener("error", () => {
-      reject(`Failed to load image's URL: ${image.url}`);
+function downloadImages() {
+  const promises = images.map(image => {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      img.onload = () => resolve(img);
+      img.onerror = () => reject(`Failed to load image's URL: ${image.url}`);
+      img.src = image.url;
     });
   });
-}
 
-function downloadAllImages() {
-  Promise.all(images.map(downloadImage))
-    .then(imgElements => {
-      for (const imgElement of imgElements) {
-        outputDiv.appendChild(imgElement);
-      }
+  Promise.all(promises)
+    .then(images => {
+      const outputDiv = document.getElementById('output');
+      images.forEach(image => {
+        outputDiv.appendChild(image);
+      });
     })
     .catch(error => {
-      console.error(error);
+      console.log(error);
     });
 }
 
-downloadImagesButton.addEventListener("click", downloadAllImages);
+document.getElementById('download-images-button').addEventListener('click', downloadImages);
