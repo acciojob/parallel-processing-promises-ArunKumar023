@@ -1,7 +1,7 @@
 const images = [
   { url: "https://via.placeholder.com/150", alt: "Placeholder Image 1" },
-  { url: "https://via.placeholder.com/250", alt: "Placeholder Image 2" },
-  { url: "https://via.placeholder.com/350", alt: "Placeholder Image 3" }
+  { url: "https://via.placeholder.com/150", alt: "Placeholder Image 2" },
+  { url: "https://via.placeholder.com/150", alt: "Placeholder Image 3" }
 ];
 
 const downloadImagesButton = document.getElementById("download-images-button");
