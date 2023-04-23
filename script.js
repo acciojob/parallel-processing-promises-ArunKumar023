@@ -1,18 +1,16 @@
 const images = [
-  {url: 'https://source.unsplash.com/random/800x600'},
-  {url: 'https://source.unsplash.com/random/600x800'},
-  {url: 'https://source.unsplash.com/random/1200x900'},
-  {url: 'https://source.unsplash.com/random/900x1200'},
-  {url: 'https://source.unsplash.com/random/700x700'}
+  'https://picsum.photos/id/237/200/300',
+  'https://picsum.photos/id/238/200/300',
+  'https://picsum.photos/id/239/200/300'
 ];
 
 function downloadImages() {
-  const promises = images.map(image => {
+  const promises = images.map(url => {
     return new Promise((resolve, reject) => {
       const img = new Image();
       img.onload = () => resolve(img);
-      img.onerror = () => reject(`Failed to load image's URL: ${image.url}`);
-      img.src = image.url;
+      img.onerror = () => reject(`Failed to load image's URL: ${url}`);
+      img.src = url;
     });
   });
 
